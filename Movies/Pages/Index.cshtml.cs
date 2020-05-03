@@ -65,7 +65,21 @@ namespace Movies.Pages
         {
             this.IMDBMin = IMDBMin;
             this.IMDBMax = IMDBMax;
-            Movies = MovieDatabase.Search(SearchTerms);
+            Movies = MovieDatabase.All;
+
+    // Search movie titles for the SearchTerms
+    if(SearchTerms != null)
+            {
+                Movies = Movies.Where(movie => movie.Title != null && movie.Title.Contains(SearchTerms, StringComparison.InvariantCultureIgnoreCase));
+            }
+            // Filter by MPAA Rating 
+            if(MPAARatings != null && MPAARatings.Length != 0)
+            {
+                Movies = Movies.Where(movie =>
+                    movie.MPAARating != null &&
+                    MPAARatings.Contains(movie.MPAARating)
+                    );
+            }
             Movies = MovieDatabase.FilterByMPAARating(Movies, MPAARatings);
             Movies = MovieDatabase.FilterByGenre(Movies, Genres);
             Movies = MovieDatabase.FilterByIMDBRating(Movies, IMDBMin, IMDBMax);
