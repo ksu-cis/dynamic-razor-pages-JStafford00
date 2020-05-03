@@ -67,8 +67,8 @@ namespace Movies.Pages
             this.IMDBMax = IMDBMax;
             Movies = MovieDatabase.All;
 
-    // Search movie titles for the SearchTerms
-    if(SearchTerms != null)
+            // Search movie titles for the SearchTerms
+            if(SearchTerms != null)
             {
                 Movies = Movies.Where(movie => movie.Title != null && movie.Title.Contains(SearchTerms, StringComparison.InvariantCultureIgnoreCase));
             }
